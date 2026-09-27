@@ -99,13 +99,21 @@ if ! decorate_readme "$BRANCH_ROOT/README.html5"; then
 fi
 
 # Mirror only code-oriented KoLmafia surfaces. Never mirror account/session material.
+# Existing mirrors are intentionally read-only, so thaw owner write permission
+# before replacing them, then freeze the fresh copy again.
 for d in scripts relay ccs; do
-  rm -rf "$MIRROR_DIR/$d"
+  if [[ -e "$MIRROR_DIR/$d" ]]; then
+    chmod -R u+w "$MIRROR_DIR/$d" 2>/dev/null || true
+    chmod u+w "$MIRROR_DIR" 2>/dev/null || true
+    rm -rf "$MIRROR_DIR/$d"
+  fi
+
   if [[ -d "$LIVE/$d" ]]; then
     cp -a "$LIVE/$d" "$MIRROR_DIR/$d"
     chmod -R a-w "$MIRROR_DIR/$d" 2>/dev/null || true
   else
     mkdir -p "$MIRROR_DIR/$d"
+    chmod -R a-w "$MIRROR_DIR/$d" 2>/dev/null || true
   fi
 done
 
