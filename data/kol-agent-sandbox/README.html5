@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KoL Agent Sandbox</title>
+<style>
+:root{color-scheme:dark;--bg:#090d12;--panel:#111923;--text:#e9f0fa;--muted:#95a4b8;--line:#29394d;--blue:#76b7ff;--green:#9ee493;--gold:#ffc857;--bad:#ff7b72}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% -10%,#16304d55,transparent 34%),linear-gradient(180deg,#090d12,#0c1219 34%,#090d12);color:var(--text);font:15px/1.48 system-ui,sans-serif}.app{max-width:1180px;margin:auto;padding:24px}.card{background:rgba(17,25,35,.95);border:1px solid var(--line);border-radius:15px;padding:18px;margin:12px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}.kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--green);font-weight:800}a{color:var(--blue)}code,pre{background:#0a1119;border:1px solid #24354a;border-radius:6px;padding:2px 5px}pre{padding:12px;overflow:auto}.warn{border-left:3px solid var(--gold)}
+</style>
+</head>
+<body><main class="app">
+{{NOTICE}}
+<section class="card">
+<div class="kicker">Agent-first · sandbox-first · live-aware</div>
+<h1>KoL Agent Sandbox · {{BRANCH}}</h1>
+<p>Mirrored agent test environment backed by <code>loathers/kolmafia-mock</code>.</p>
+</section>
+<section class="grid">
+<article class="card"><h2>Sandbox</h2><code>{{SANDBOX}}</code></article>
+<article class="card"><h2>Live</h2><code>{{LIVE}}</code><p>Reference only; never a test fallback.</p></article>
+<article class="card"><h2>Mirror</h2><code>mirror/</code><p>Read-only code copies.</p></article>
+<article class="card"><h2>Work</h2><code>work/</code><p>Writable agent work area.</p></article>
+</section>
+<section class="card warn">
+<h2>Core invariant</h2>
+<p>A mirror, fixture, or mock may inform reasoning but does not authorize a live game action.</p>
+</section>
+</main></body></html>
