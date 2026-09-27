@@ -107,6 +107,26 @@ yarn install --immutable
 yarn vitest run
 ```
 
+### Upstream mock-test compatibility
+
+The pinned `kolmafia-mock` revision uses `data-of-loathing ^2.0.1`. That v2 client queries the former GraphQL service. Current `data-of-loathing` v3 has migrated to a local/hosted SQLite client instead.
+
+If the upstream test suite returns `Cannot POST /graphql`, the bootstrap now records:
+
+```text
+mock_test_status: fail
+mock_test_reason: upstream-data-of-loathing-v2-graphql-retired
+```
+
+and **continues creating the sandbox, manifest, logs, and HTML index**. A failed upstream dependency test is evidence about mock compatibility; it does not make the isolated mirror unusable and never authorizes fallback to live KoLmafia.
+
+Logs are retained under:
+
+```text
+sandboxes/<branch>/logs/kolmafia-mock-install.log
+sandboxes/<branch>/logs/kolmafia-mock-tests.log
+```
+
 ## Update / reinstall
 
 Update from gCLI:
