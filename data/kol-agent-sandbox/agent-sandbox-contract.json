@@ -22,7 +22,8 @@
   ],
   "mock": {
     "repository": "https://github.com/loathers/kolmafia-mock.git",
-    "default_ref": "5c53bf4a5ee64d84710e7788409862bd8d2a1661"
+    "default_ref": "5c53bf4a5ee64d84710e7788409862bd8d2a1661",
+    "role": "upstream mock engine"
   },
   "write_policy": {
     "mirror": "read-only",
@@ -32,7 +33,14 @@
   "mock_verification": {
     "sandbox_creation_requires_mock_tests": false,
     "mock_verified_requires_tests_pass": true,
-    "known_legacy_failure": "upstream-data-of-loathing-v2-graphql-retired",
-    "failure_policy": "record evidence and continue sandbox construction; never fall through to live KoLmafia"
+    "verified_success_reason": "tokens-of-loathing-compat-tests-passed",
+    "failure_policy": "record evidence and continue sandbox construction; never fall through to live KoLmafia",
+    "authority_boundary": "mock/test PASS is evidence only and never authorizes live KoLmafia actions"
+  },
+  "mock_compatibility_provider": {
+    "repository": "https://github.com/donCannoli-burns/tokens-of-loathing.git",
+    "default_ref": "5ff383e73a94aa966b8c315d680e287c5a3ed4a5",
+    "entrypoint": "compat/kolmafia-mock/materialize.sh",
+    "role": "SQLite-backed compatibility provider for the pinned upstream mock"
   }
 }
