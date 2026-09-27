@@ -66,7 +66,10 @@ The resulting layout is:
         │   ├── relay/
         │   └── ccs/
         ├── mock/
-        │   └── kolmafia-mock/
+        │   ├── kolmafia-mock/
+        │   └── tokens-of-loathing/
+        ├── logs/
+        │   └── kolmafia-mock-compat.log
         └── work/
 ```
 
@@ -132,6 +135,7 @@ A successful bootstrap records:
 ```text
 mock_test_status: pass
 mock_test_reason: tokens-of-loathing-compat-tests-passed
+mock_verified: true
 ```
 
 The generated sandbox keeps both checkouts under:
