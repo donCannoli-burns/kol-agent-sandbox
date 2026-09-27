@@ -70,6 +70,8 @@ The resulting layout is:
 
 The mirror is read-only. Agent edits belong in `work/`.
 
+On refresh, the bootstrap temporarily restores owner write permission to the existing mirror, replaces it from the live code-oriented directories, and then freezes the new mirror read-only again. This makes repeated runs idempotent without requiring `sudo`.
+
 ## What is deliberately not mirrored
 
 The host bootstrap does **not** copy:
