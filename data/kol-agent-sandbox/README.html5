@@ -13,16 +13,16 @@
 <section class="card">
 <div class="kicker">Agent-first · sandbox-first · live-aware</div>
 <h1>KoL Agent Sandbox · {{BRANCH}}</h1>
-<p>Mirrored agent test environment backed by <code>loathers/kolmafia-mock</code>.</p>
+<p>Mirrored agent test environment using pinned <code>loathers/kolmafia-mock</code> with SQLite compatibility supplied by <code>donCannoli-burns/tokens-of-loathing</code>.</p>
 </section>
 <section class="grid">
 <article class="card"><h2>Sandbox</h2><code>{{SANDBOX}}</code></article>
 <article class="card"><h2>Live</h2><code>{{LIVE}}</code><p>Reference only; never a test fallback.</p></article>
 <article class="card"><h2>Mirror</h2><code>mirror/</code><p>Read-only code copies.</p></article>
-<article class="card"><h2>Work</h2><code>work/</code><p>Writable agent work area.</p></article>
+<article class="card"><h2>Work</h2><code>work/</code><p>Writable agent work area.</p></article>\n<article class="card"><h2>Compatibility</h2><code>mock/tokens-of-loathing/</code><p>Owns SQLite → legacy mock projection and verification.</p></article>
 </section>
 <section class="card warn">
 <h2>Core invariant</h2>
-<p>A mirror, fixture, or mock may inform reasoning but does not authorize a live game action.</p>
+<p>A mirror, fixture, mock, compatibility adapter, or passing test may inform reasoning but does not authorize a live game action.</p>
 </section>
 </main></body></html>
