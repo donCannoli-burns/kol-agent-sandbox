@@ -8,8 +8,18 @@
   "logical_sandbox_root": "./kolmafia",
   "live_default": "~/.kolmafia",
   "sandbox_pattern": "./kolmafia/sandboxes/<branch>",
-  "mirror_default": ["scripts", "relay", "ccs"],
-  "excluded_live_state": ["settings", "sessions", "cookies", "password hashes", "login/session material"],
+  "mirror_default": [
+    "scripts",
+    "relay",
+    "ccs"
+  ],
+  "excluded_live_state": [
+    "settings",
+    "sessions",
+    "cookies",
+    "password hashes",
+    "login/session material"
+  ],
   "mock": {
     "repository": "https://github.com/loathers/kolmafia-mock.git",
     "default_ref": "5c53bf4a5ee64d84710e7788409862bd8d2a1661"
@@ -18,5 +28,11 @@
     "mirror": "read-only",
     "work": "writable",
     "live": "never test-write"
+  },
+  "mock_verification": {
+    "sandbox_creation_requires_mock_tests": false,
+    "mock_verified_requires_tests_pass": true,
+    "known_legacy_failure": "upstream-data-of-loathing-v2-graphql-retired",
+    "failure_policy": "record evidence and continue sandbox construction; never fall through to live KoLmafia"
   }
 }
