@@ -1,0 +1,22 @@
+{
+  "schema": "kolmafia-agent-sandbox/v1",
+  "repository": "https://github.com/donCannoli-burns/kol-agent-sandbox",
+  "kolmafia_checkout": "git checkout https://github.com/donCannoli-burns/kol-agent-sandbox.git",
+  "kolmafia_entrypoint": "scripts/kol-agent-sandbox.ash",
+  "gcli_launch": "call kol-agent-sandbox.ash install main",
+  "gcli_update": "git update donCannoli-burns-kol-agent-sandbox",
+  "logical_sandbox_root": "./kolmafia",
+  "live_default": "~/.kolmafia",
+  "sandbox_pattern": "./kolmafia/sandboxes/<branch>",
+  "mirror_default": ["scripts", "relay", "ccs"],
+  "excluded_live_state": ["settings", "sessions", "cookies", "password hashes", "login/session material"],
+  "mock": {
+    "repository": "https://github.com/loathers/kolmafia-mock.git",
+    "default_ref": "5c53bf4a5ee64d84710e7788409862bd8d2a1661"
+  },
+  "write_policy": {
+    "mirror": "read-only",
+    "work": "writable",
+    "live": "never test-write"
+  }
+}
