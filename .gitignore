@@ -1,0 +1,4 @@
+# Generated local sandbox output
+/kolmafia/
+*.pre-agent-sandbox.bak
+.DS_Store
