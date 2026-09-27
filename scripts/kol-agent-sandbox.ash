@@ -38,12 +38,12 @@ string html_escape(string s) {
     return s;
 }
 
-void write_text(string path, string text) {
-    buffer_to_file(text.to_buffer(), path);
+void write_text(string file_name, string text) {
+    buffer_to_file(text.to_buffer(), file_name);
 }
 
-string read_text(string path) {
-    buffer b = file_to_buffer(path);
+string read_text(string file_name) {
+    buffer b = file_to_buffer(file_name);
     return b.to_string();
 }
 
@@ -74,20 +74,20 @@ string rendered_template(string branch) {
     return source;
 }
 
-void write_readme_preserving_existing(string path, string branch) {
-    string existing = read_text(path);
+void write_readme_preserving_existing(string file_name, string branch) {
+    string existing = read_text(file_name);
     if (existing != "") {
         if (index_of(existing, NOTICE_MARKER) >= 0) return;
-        write_text(path + ".pre-agent-sandbox.bak", existing);
-        write_text(path, notice_html(branch) + existing);
+        write_text(file_name + ".pre-agent-sandbox.bak", existing);
+        write_text(file_name, notice_html(branch) + existing);
         return;
     }
-    write_text(path, rendered_template(branch));
+    write_text(file_name, rendered_template(branch));
 }
 
 string state_json(string branch) {
     string b = replace_string(safe_branch(branch), "\"", "'");
-    string path = replace_string(my_path(), "\"", "'");
+    string path_name = replace_string(my_path(), "\"", "'");
     string cls = replace_string(my_class(), "\"", "'");
     return "{\n"
         + "  \"kind\": \"kolmafia-readonly-fixture\",\n"
@@ -96,7 +96,7 @@ string state_json(string branch) {
         + "  \"player_id\": " + my_id() + ",\n"
         + "  \"class\": \"" + cls + "\",\n"
         + "  \"level\": " + my_level() + ",\n"
-        + "  \"path\": \"" + path + "\",\n"
+        + "  \"path\": \"" + path_name + "\",\n"
         + "  \"daycount\": " + my_daycount() + ",\n"
         + "  \"adventures\": " + my_adventures() + ",\n"
         + "  \"meat\": " + my_meat() + ",\n"
