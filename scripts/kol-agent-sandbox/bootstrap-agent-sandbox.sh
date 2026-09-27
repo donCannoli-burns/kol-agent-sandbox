@@ -173,6 +173,7 @@ MOCK_INSTALL_EXIT=0
 MOCK_TEST_STATUS="skipped"
 MOCK_TEST_EXIT=0
 MOCK_TEST_REASON="not-run"
+MOCK_VERIFIED=false
 
 if [[ "$DO_INSTALL" -eq 1 ]]; then
   if ! command -v corepack >/dev/null 2>&1 && ! command -v yarn >/dev/null 2>&1; then
@@ -192,6 +193,7 @@ if [[ "$DO_INSTALL" -eq 1 ]]; then
       MOCK_INSTALL_STATUS="pass"
       MOCK_TEST_STATUS="pass"
       MOCK_TEST_REASON="tokens-of-loathing-compat-tests-passed"
+      MOCK_VERIFIED=true
     else
       MOCK_INSTALL_STATUS="fail"
       MOCK_INSTALL_EXIT="$MOCK_TEST_EXIT"
@@ -241,6 +243,7 @@ cat > "$BRANCH_ROOT/sandbox-manifest.json" <<EOF
   "mock_test_status": "$MOCK_TEST_STATUS",
   "mock_test_exit": $MOCK_TEST_EXIT,
   "mock_test_reason": "$MOCK_TEST_REASON",
+  "mock_verified": $MOCK_VERIFIED,
   "mock_compatibility_log": "logs/kolmafia-mock-compat.log",
   "mirrored_live_dirs": ["scripts", "relay", "ccs"],
   "excluded_live_state": ["settings", "sessions", "cookies", "password hashes", "login/session material"]
