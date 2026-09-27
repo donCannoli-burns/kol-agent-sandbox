@@ -13,8 +13,7 @@
 
 string ROOT = "kolmafia";
 string TEMPLATE = "kol-agent-sandbox/README.html5";
-string MOCK_REPO = "https://github.com/loathers/kolmafia-mock.git";
-string MOCK_BRANCH = "main";
+string TOKENS_REPO = "https://github.com/donCannoli-burns/tokens-of-loathing";
 string NOTICE_MARKER = "data-kolmafia-agent-sandbox-notice";
 
 string safe_branch(string branch) {
@@ -127,10 +126,10 @@ void ensure_docs(string branch) {
 
 void print_help() {
     print("KoL Agent Sandbox", "blue");
-    print("  install [branch]  scaffold docs + fixture and install kolmafia-mock", "black");
+    print("  install [branch]  scaffold docs + fixture; host bootstrap materializes verified mock", "black");
     print("  docs [branch]     regenerate HTML5 sandbox documentation", "black");
     print("  snapshot [branch] refresh the small read-only state fixture", "black");
-    print("  mock              install loathers/kolmafia-mock through KoLmafia git", "black");
+    print("  mock              show host-side verified mock materialization workflow", "black");
     print("  status [branch]   print sandbox/live locations", "black");
     print("  help              show this help", "black");
 }
@@ -166,8 +165,9 @@ void main(string command) {
     }
 
     if (cmd == "mock") {
-        print("Installing " + MOCK_REPO + " (" + MOCK_BRANCH + ") through KoLmafia git...", "blue");
-        cli_execute("git checkout " + MOCK_REPO + " " + MOCK_BRANCH);
+        print("Verified mock materialization is host-side, not a KoLmafia git install.", "blue");
+        print("Compatibility provider: " + TOKENS_REPO, "blue");
+        print("Run ~/.kolmafia/scripts/kol-agent-sandbox/bootstrap-agent-sandbox.sh from your host shell.", "green");
         return;
     }
 
@@ -183,9 +183,9 @@ void main(string command) {
         ensure_docs(branch);
         write_text(sandbox_path(branch) + "/fixtures/live-state.json", state_json(branch));
         print("KoLmafia-side scaffold complete.", "green");
-        print("Installing kolmafia-mock through KoLmafia git...", "blue");
-        cli_execute("git checkout " + MOCK_REPO + " " + MOCK_BRANCH);
-        print("For the full read-only mirror, run scripts/kol-agent-sandbox/bootstrap-agent-sandbox.sh from your host shell.", "blue");
+        print("Mock compatibility is intentionally deferred to the host bootstrap.", "blue");
+        print("Provider: " + TOKENS_REPO, "blue");
+        print("Run ~/.kolmafia/scripts/kol-agent-sandbox/bootstrap-agent-sandbox.sh from your host shell.", "green");
         return;
     }
 
