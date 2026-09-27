@@ -1,6 +1,6 @@
 # kol-agent-sandbox
 
-A KoLmafia-native installer for creating a **mirrored agent test/sandbox environment** backed by [loathers/kolmafia-mock](https://github.com/loathers/kolmafia-mock).
+A KoLmafia-native installer for creating a **mirrored agent test/sandbox environment** using the pinned [loathers/kolmafia-mock](https://github.com/loathers/kolmafia-mock) engine with the verified SQLite compatibility provider from [donCannoli-burns/tokens-of-loathing](https://github.com/donCannoli-burns/tokens-of-loathing).
 
 ## KoLmafia install
 
@@ -10,11 +10,13 @@ Run in gCLI:
 git checkout https://github.com/donCannoli-burns/kol-agent-sandbox.git
 ```
 
-Then launch the sandbox scaffold:
+Then launch the KoLmafia-side scaffold:
 
 ```text
 call kol-agent-sandbox.ash install main
 ```
+
+This step creates docs/fixtures only. It deliberately does **not** install a raw `kolmafia-mock` into live KoLmafia. Verified mock materialization belongs to the host bootstrap below.
 
 Useful commands:
 
@@ -88,46 +90,68 @@ A sandbox or mock failure is never permission to fall through to live KoLmafia.
 
 If a sandbox destination already contains `README.html5` or `README.html`, the bootstrap saves a `.pre-agent-sandbox.bak` copy and prepends a clear **SANDBOX / LIVE** location banner. It never edits the live README in place.
 
-## kolmafia-mock
+## Mock compatibility workflow
 
-The host bootstrap clones:
+The sandbox keeps responsibilities separated:
+
+```text
+loathers/kolmafia-mock @ pinned upstream commit
+        +
+donCannoli-burns/tokens-of-loathing @ pinned verified commit
+        ↓
+tokens compat/kolmafia-mock/materialize.sh
+        ↓
+SQLite-backed compatible mock checkout
+        ↓
+original upstream 7-file Vitest suite
+        ↓
+sandbox manifest + evidence log
+```
+
+Pinned upstream mock:
 
 ```text
 https://github.com/loathers/kolmafia-mock.git
-```
-
-and defaults to pinned commit:
-
-```text
 5c53bf4a5ee64d84710e7788409862bd8d2a1661
 ```
 
-When Yarn/Corepack is available it runs:
-
-```bash
-yarn install --immutable
-yarn vitest run
-```
-
-### Upstream mock-test compatibility
-
-The pinned `kolmafia-mock` revision uses `data-of-loathing ^2.0.1`. That v2 client queries the former GraphQL service. Current `data-of-loathing` v3 has migrated to a local/hosted SQLite client instead.
-
-If the upstream test suite returns `Cannot POST /graphql`, the bootstrap now records:
+Pinned compatibility provider:
 
 ```text
-mock_test_status: fail
-mock_test_reason: upstream-data-of-loathing-v2-graphql-retired
+https://github.com/donCannoli-burns/tokens-of-loathing.git
+5ff383e73a94aa966b8c315d680e287c5a3ed4a5
+compat/kolmafia-mock/materialize.sh
 ```
 
-and **continues creating the sandbox, manifest, logs, and HTML index**. A failed upstream dependency test is evidence about mock compatibility; it does not make the isolated mirror unusable and never authorizes fallback to live KoLmafia.
+The compatibility provider builds the current SQLite-backed client, applies only
+the narrow legacy data adapter needed by the pinned mock, downloads one SQLite
+snapshot, and runs the original upstream tests unchanged.
 
-Logs are retained under:
+A successful bootstrap records:
 
 ```text
-sandboxes/<branch>/logs/kolmafia-mock-install.log
-sandboxes/<branch>/logs/kolmafia-mock-tests.log
+mock_test_status: pass
+mock_test_reason: tokens-of-loathing-compat-tests-passed
 ```
+
+The generated sandbox keeps both checkouts under:
+
+```text
+sandboxes/<branch>/mock/
+├── kolmafia-mock/
+└── tokens-of-loathing/
+```
+
+Compatibility evidence is retained in:
+
+```text
+sandboxes/<branch>/logs/kolmafia-mock-compat.log
+sandboxes/<branch>/mock/kolmafia-mock/.kolmafia-mock-compat/compat-manifest.json
+```
+
+A failed compatibility check still does **not** authorize fallback to live
+KoLmafia. Sandbox construction may finish so evidence can be inspected, but
+`mock_verified` remains false until the compatibility tests pass.
 
 ## Update / reinstall
 
