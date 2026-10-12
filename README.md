@@ -122,7 +122,7 @@ Pinned compatibility provider:
 
 ```text
 https://github.com/donCannoli-burns/tokens-of-loathing.git
-5ff383e73a94aa966b8c315d680e287c5a3ed4a5
+7c72f8d8e06a0cb666f3e0423f9a753e2445784d
 compat/kolmafia-mock/materialize.sh
 ```
 
@@ -175,3 +175,38 @@ git checkout https://github.com/donCannoli-burns/kol-agent-sandbox.git
 ## Safety boundary
 
 This project is a test scaffold, not an alternate execution authority. Mirrors, fixtures, HTML indexes, and mocks may provide evidence about behavior; they do not authorize live game actions.
+
+
+## don_combo WaterSheep lab
+
+The pinned `tokens-of-loathing` checkout now includes the deterministic
+`don_combo` WaterSheep lab. After the normal sandbox bootstrap, run:
+
+```bash
+bash ~/.kolmafia/scripts/kol-agent-sandbox/run-don-combo-watersheep-lab.sh \
+  --root ./kolmafia \
+  --branch main
+```
+
+This reuses the sandbox's existing pinned `kolmafia-mock` checkout and frozen
+SQLite corpus. It runs corpus/mock/contract smoke tests without requiring a
+model.
+
+With WaterSheep running locally:
+
+```bash
+bash ~/.kolmafia/scripts/kol-agent-sandbox/run-don-combo-watersheep-lab.sh \
+  --root ./kolmafia \
+  --branch main \
+  --watersheep http://127.0.0.1:8766/v1/systemone
+```
+
+To compare against a live/exported matrix contract, pass it explicitly:
+
+```bash
+  --live-runtime ~/.kolmafia/data/don_combo_matrix_runtime.json
+```
+
+The helper does not read live KoLmafia data unless that path is explicitly
+provided. A benchmark PASS remains test evidence only; it grants no live action
+authority.
