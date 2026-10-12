@@ -1,0 +1,27 @@
+name: Sandbox script smoke
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/**"
+      - ".github/workflows/smoke.yml"
+  workflow_dispatch:
+
+jobs:
+  shell:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Bash syntax
+        run: |
+          bash -n scripts/kol-agent-sandbox/bootstrap-agent-sandbox.sh
+          bash -n scripts/kol-agent-sandbox/run-don-combo-watersheep-lab.sh
+
+      - name: Boundary assertions
+        run: |
+          grep -F 'compat/don-combo-watersheep/materialize.sh' scripts/kol-agent-sandbox/run-don-combo-watersheep-lab.sh
+          grep -F '7c72f8d8e06a0cb666f3e0423f9a753e2445784d' scripts/kol-agent-sandbox/bootstrap-agent-sandbox.sh
+          grep -F 'live_runtime=not-supplied' scripts/kol-agent-sandbox/run-don-combo-watersheep-lab.sh
