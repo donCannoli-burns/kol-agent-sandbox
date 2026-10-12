@@ -7,7 +7,7 @@ BRANCH=""
 MOCK_REPO="${KOLMAFIA_MOCK_REPO:-https://github.com/loathers/kolmafia-mock.git}"
 MOCK_REF="${KOLMAFIA_MOCK_REF:-5c53bf4a5ee64d84710e7788409862bd8d2a1661}"
 TOKENS_REPO="${TOKENS_OF_LOATHING_REPO:-https://github.com/donCannoli-burns/tokens-of-loathing.git}"
-TOKENS_REF="${TOKENS_OF_LOATHING_REF:-5ff383e73a94aa966b8c315d680e287c5a3ed4a5}"
+TOKENS_REF="${TOKENS_OF_LOATHING_REF:-7c72f8d8e06a0cb666f3e0423f9a753e2445784d}"
 DO_INSTALL=1
 
 usage() {
